@@ -1,9 +1,12 @@
-
 import random
-def event():
+event = random.randint(1, 2)
+
+event_list
+
+def zombie_event():
         print("An EVENT is coming")
         if event == 1:
-            print("EVENT 1 is coming")
-        elif event == 2 :
-            print("EVENT 2 is coming")
-event()
+            print("Event 1 is coming")
+        elif event == 2:
+            print("Event 2 is coming")
+zombie_event()
