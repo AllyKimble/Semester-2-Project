@@ -24,3 +24,4 @@ class Zombie_Boss:
         self.speed = speed
         self.damage = damage
 boss = Zombie_Boss(150, 5, 15)
+print(boss.hp, boss.speed, boss.damage)
