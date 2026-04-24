@@ -28,3 +28,4 @@ print('zombie_boss')
 print(boss.hp)
 print(boss.speed)
 print(boss.damage)
+#NEED TO MAKE BOSS SPAWN RANDOM
