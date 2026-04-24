@@ -1,7 +1,7 @@
 import random
 event = random.randint(1, 2)
 
-
+# random events and rare events
 def zombie_event():
         print("An Event is on it's way")
         if event == 1:
@@ -17,11 +17,14 @@ def secret_event():
         elif event == 2:
             print("you filed the secret event")
 secret_event()
-
+#big boss on day what ever
 class Zombie_Boss:
     def __init__(self, hp, speed, damage):
         self.hp = hp
         self.speed = speed
         self.damage = damage
 boss = Zombie_Boss(150, 5, 15)
-print(boss.hp, boss.speed, boss.damage)
+print('zombie_boss')
+print(boss.hp)
+print(boss.speed)
+print(boss.damage)
