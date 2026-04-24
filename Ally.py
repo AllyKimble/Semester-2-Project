@@ -20,9 +20,12 @@ name = input("Enter your survivor's name: ")
 player = Player(name)
 
 day = 1
+choices_made = 0
+
 def days():
     global day
     day = day + 1
+
     if day <= 6:
         print("It is now day ", day)
     if day == 7:
@@ -30,6 +33,7 @@ def days():
         secret_2 = random.randint(1,32)
         secret_3 = random.randint(1,20)
         secret_4 = random.randint(1,8)
+
         if secret_1 == 1:
             print("You have survived seven days this is a very very are ending")
         elif secret_2 == 1:
@@ -53,7 +57,6 @@ print("Inventory:", player.inventory)
 
 while player.health > 0 and day == 1:
 
-    choices_made = 0
 
     print("~~~ Choose your action ~~~")
     print("1. Search an abandoned house")
@@ -125,8 +128,21 @@ while player.health > 0 and day == 1:
     elif choice != "1" and choice != "2" and choice != "3" and choice != "4" and choice != "5" and choice != "6":
             print("Invalid choice! Please try again.")
 
+    if player.health > 100:
+        player.health = 100
+        print("Health: ", player.health)
+        print("Food: ", player.food)
+
     if choices_made == 7:
         days()
+        choices_made = 0
+
+    if player.health <= 0:
+        print("Oh no! You have died! GAME OVER")
+        break
+
+
+#Scavenging/Searching day#
 
 if day == 2:
 
@@ -135,3 +151,74 @@ if day == 2:
     print("Food: ", player.food)
     print("Weapon:", player.weapon)
     print("Inventory:", player.inventory)
+
+while player.health > 0 and day == 2:
+    print("~~~ Choose your action ~~~")
+    print("1. Eat some scrumptious lettuce.")
+    print("2. Rest.")
+    print("3. Set up camp.")
+    print("4. Look for people.")
+    print("5. Use the last battery on your phone to play roblox.")
+    print("6. Make a farm.")
+    print("7. Go for a run.")
+
+    choice = input("Enter your choice(1-7): ")
+
+    if choice == "1":
+        if player.food > 0:
+            print("You ate some scrumptious lettuce!")
+            player.food -= 1
+            player.health += 2
+            print("Food: ", player.food)
+            print("Health: ", player.health)
+            choices_made += 1
+        else:
+            print("No food left! T-T")
+            print("Food: ", player.food)
+
+    if choice == "2":
+        choices_made += 1
+        print("You rested and gained health")
+        player.health += 5
+        print("Health: ", player.health)
+
+    if choice == "3":
+        print("You decided to set up camp!")
+        a = random.randint(1, 10)
+        if a == 1:
+            print("You managed to light a fire!")
+            player.health += 5
+            print("Health: ", player.health)
+        elif a == 2:
+            print("You tried to light a fire, but did not succeed. :(")
+        elif a == 3:
+            print("A spark landed on your shirt! You now have no shirt.")
+            player.health -= 5
+            print("Health: ", player.health)
+        elif a == 4:
+            print("You managed to set up a tent for the night.")
+            player.health += 5
+            print("Health: ", player.health)
+        elif a == 5:
+            print("You tried to set up a tent for the night, but did not succeed. :(.")
+        elif a == 6:
+            print("You decide to fry some lettuce over a fire!")
+            player.food += 1
+            print("Food: ", player.food)
+        elif a == 7:
+            print("You dropped your lettuce in the fire and tried to grab it! You burned your hand!")
+            player.health -= 5
+            player.food -= 1
+            print("Health: ", player.health)
+            print("Food: ", player.food)
+        elif a == 8:
+            damage = random.randint(5, 30)
+            print("A zombie showed up while you were setting up! It attacks you!")
+            player.health -= damage
+            print("Health: ", player.health)
+        elif a == 9:
+            print("You hear a voice from the foliage. You walk over and find a small, purple cricket who is wearing a top hat, and a small pair of golden socks. It beckons you over, and hands you a small golden key. It looks you in the eyes, before jumping into the fire with a small scream. You pocket the key.")
+            player.inventory.append(player.inventory.pop("Golden Key"))
+
+
+
