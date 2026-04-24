@@ -1,4 +1,4 @@
-#Things to work on:
+#Things to work on: Random scenarios, attack and health, ask questions
 #Scenarios, make an introduction to game/explain, fix the choices, fix and bugs
 import random, time
 #class for player#
@@ -52,10 +52,11 @@ print("Survive for 7 days in the zombie apocalypse!")
 print("Health: ", player.health)
 print("Food: ", player.food)
 print("Weapon:", player.weapon)
-choices()
+# Making an safe and not safe mechanic
 
-#first_choice
+# first_choice
 while player.health > 0 and day <= 6:
+    choices()
     choice = input("Enter your choice(1-6): ")
     if choice == "1":
         choices_made += 1
