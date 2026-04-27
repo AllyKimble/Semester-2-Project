@@ -7,8 +7,13 @@ class Player:
         self.name = name
         self.health = 100
         self.food = 1
-        self.weapon = "Fists"
+        self.weapon = ["Fists"]
         self.inventory = ["Map", "Flashlight", "Socks", "Water Flask"]
+class Scout:
+    def __init__(self, name, health, energy):
+        self.name = 'Scout'
+        self.health = 50
+        self.energy = 100
 #Day_def
 def days():
     global day
@@ -52,8 +57,51 @@ print("Survive for 7 days in the zombie apocalypse!")
 print("Health: ", player.health)
 print("Food: ", player.food)
 print("Weapon:", player.weapon)
-# Making an safe and not safe mechanic
+#Added Scout mechanic
+def scout():
+    if scout == True:
+        scout.health = 50
+        while scout.health > 50:
+            scout_question = str(input("Would you like to use scout?(y/n):"))
+            if scout_question == "y":
+                print("Would you like to use scout?")
+                print("What would you like scout to do?")
+                print("1. Look for food (Medium risk, medium prize")
+                print("2. look for an weapon crate (High risk, High prize)")
+                print("3. Nevermind")
+                Scout_choice = input("Enter your choice: ")
+                if Scout_choice == "1":
+                    scout1 = random.randint(1,12)
+                    scout2 = random.randint(1,6)
+                    if scout1 == 1:
+                        print("Scout found you +5 food, But took -20 of her energy")
+                    elif scout2 == 1:
+                        print("Scout got attacked by an zombie. - 20 scout health and -20 scout energy")
+                    else:
+                        print("Scout found you food. + 1 food and -20 Scout energy")
 
+
+
+# Added a abandoned hospital scenario
+def abandoned_hospital():
+    thing1 = random.randint(1,25)
+    thing2 = random.randint(1,12)
+    thing3 = random.randint(1,7)
+    if thing1 == 1:
+        print("You found a gun (epic), and a first aid kit(Legendary)!!")
+        player.weapon.append("Gun")
+        player.inventory.append("Medkit")
+    if thing2 == 1:
+        print("You found a Dog, named scout. You become best friends!!")
+        scout = True
+    if thing3 == 1:
+        zombie_bite = random.randint(10,25)
+        print("You got attacked by a zombie nurse, Minus", zombie_bite, "Hp")
+        player.health -= zombie_bite
+        print("Health: ", player.health)
+    else:
+        print("You found a baseball bat (uncommon)")
+        player.inventory.append("baseball")
 # first_choice
 while player.health > 0 and day <= 6:
     choices()
@@ -118,4 +166,14 @@ while player.health > 0 and day <= 6:
 
     elif choice != "1" and choice != "2" and choice != "3" and choice != "4" and choice != "5" and choice != "6":
             print("Invalid choice! Please try again.")
+# abandoned hospital scenarios
+    print("You stumbled across an abandoned hospital!")
+    abandoned_question = str(input("Would You like to explore it(y/n)"))
+    if abandoned_question == "y":
+        abandoned_hospital()
+    elif abandoned_question == "n":
+        print("You didn't explore the hospital and go back to base")
+    else:
+        print("Invalid choice! Please try again.")
+    break
 
