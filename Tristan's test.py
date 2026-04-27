@@ -1,7 +1,10 @@
-class Zombie_Boss:
-    def __init__(self, hp, speed, damage):
-        self.hp = hp
-        self.speed = speed
-        self.damage = damage
-boss = Zombie_Boss(150, 5, 15)
-print(boss.hp, boss.speed, boss.damage)
+import random
+game = random.randint(1, 2)
+
+def games():
+        print("An Event is on it's way")
+        if game == 1:
+            print("game1:one V bot")
+        elif game == 2:
+            print("game2:one V one")
+games()
