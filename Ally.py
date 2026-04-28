@@ -4,6 +4,8 @@
 
 import random
 import time
+from idlelib.config_key import translate_key
+
 
 #class for player#
 
@@ -77,8 +79,8 @@ while player.health > 0 and day == 1:
             player.food +=  1
             print("Food: ", player.food)
         elif find == 2:
-            print("You found the Fork of Wonder!")
-            player.weapon = "Fork of Wonder"
+            print("You found the Fork of Fear!")
+            player.weapon = "Fork of Fear"
         else:
             print("A zombie was inside the house and you got attacked!!! :O")
             player.health -= 25
@@ -88,7 +90,7 @@ while player.health > 0 and day == 1:
         choices_made += 1
         damage = random.randint(5, 30)
 
-        if player.weapon == "Fork of Wonder":
+        if player.weapon == "Fork of Fear":
             damage -= 5
 
         print("You fought a zombie!!")
@@ -100,7 +102,7 @@ while player.health > 0 and day == 1:
         if player.food > 0:
             print("You ate some scrumptious lettuce!")
             player.food -= 1
-            player.health += 2
+            player.health += 5
             print("Food: ", player.food)
             print("Health: ", player.health)
             choices_made += 1
@@ -161,14 +163,15 @@ while player.health > 0 and day == 2:
     print("5. Use the last battery on your phone to play roblox.")
     print("6. Make a farm.")
     print("7. Go for a run.")
+    print("8. View inventory.")
 
-    choice = input("Enter your choice(1-7): ")
+    choice = input("Enter your choice(1-8): ")
 
     if choice == "1":
         if player.food > 0:
             print("You ate some scrumptious lettuce!")
             player.food -= 1
-            player.health += 2
+            player.health += 5
             print("Food: ", player.food)
             print("Health: ", player.health)
             choices_made += 1
@@ -219,7 +222,8 @@ while player.health > 0 and day == 2:
             print("Health: ", player.health)
         elif a == 9:
             print("You hear a voice from the foliage. You walk over and find a small, purple cricket who is wearing a top hat, and a small pair of golden socks. It beckons you over, and hands you a small golden key. It looks you in the eyes, before jumping into the fire with a small scream. You pocket the key.")
-            #NEED TO ADD GOLDEN KEY#
+            player.inventory.append("Golden Key")
+            print("You now have The Golden Key.")
         elif a == 10:
             print("You attracted a zombie horde!")
             player.health -= random.randint(20, 50)
@@ -243,7 +247,7 @@ while player.health > 0 and day == 2:
                 print("Health: ", player.health)
         if b == 4:
             print("You find a dropped backpack with a map marked “SAFE?”")
-            player.inventory.append(player.inventory.pop("Map"))
+            player.inventory.append("Map")
         if b == 5:
             print("Someone signals you from a distance but runs off before you get close.")
             d = random.randint(1,2)
@@ -307,7 +311,7 @@ while player.health > 0 and day == 2:
     if choice == "7":
         choices_made += 1
         print("You decide to go for a run.")
-        h = random.randint(1,5)
+        h = random.randint(1,2)
         if h == 1:
             print("You run into some zombies!")
             player.health -= random.randint(5, 20)
@@ -316,3 +320,123 @@ while player.health > 0 and day == 2:
             print("You have a nice refreshing run.")
             player.health += 10
             print("Health: ", player.health)
+
+    if choice == "8":
+        choices_made += 1
+        print("inventory:", player.inventory)
+
+    elif choice != "1" and choice != "2" and choice != "3" and choice != "4" and choice != "5" and choice != "6" and choice != "7" and choice != "8":
+            print("Invalid choice! Please try again.")
+
+    if player.health > 100:
+        player.health = 100
+        print("Health: ", player.health)
+        print("Food: ", player.food)
+
+    if choices_made == 7:
+        days()
+        choices_made = 0
+
+    if player.health <= 0:
+        print("Oh no! You have died! GAME OVER")
+        break
+
+if day == 3:
+
+    print("--- Day ", day, " ---")
+    print("Health: ", player.health)
+    print("Food: ", player.food)
+    print("Weapon:", player.weapon)
+    print("Inventory:", player.inventory)
+
+while player.health > 0 and day == 3:
+    print("You found an abandoned military camp!")
+    print("~~~ Choose your action ~~~")
+    print("1. Eat some scrumptious lettuce.")
+    print("2. Rest in one of the tents.")
+    print("3. Search for supplies.")
+    print("4. Look for people.")
+    print("5. Find a working vehicle.")
+    print("6. Search for weapons.")
+    print("7. Use the boot camp.")
+    print("8. View inventory.")
+
+    choice = input("Enter your choice(1-8): ")
+
+    if choice == "1":
+        if player.food > 0:
+            print("You ate some scrumptious lettuce!")
+            player.food -= 1
+            player.health += 5
+            print("Food: ", player.food)
+            print("Health: ", player.health)
+            choices_made += 1
+        else:
+            print("No food left! T-T")
+            print("Food: ", player.food)
+
+    if choice == "2":
+        choices_made += 1
+        print("You push a skeleton out of a bed and take a nap.")
+        player.health += 5
+        print("Health: ", player.health)
+
+    if choice == "3":
+        choices_made += 1
+        i = random.randint(1,4)
+        if i == 1:
+            print("You search a small tent and find a medkit!")
+            player.inventory.append("Medkit")
+            print(player.inventory)
+        elif i == 2:
+            print("You search a broken vehicle and fin a box of ammo!")
+        elif i == 3:
+            print("A small toy tank wheels its way in front of you. A small blue cricket jumps out. It is wearing war paint and a camo helmet. It salutes you and tosses you a silver key, before reentering the tank. It explodes.")
+            player.inventory.append("Silver")
+            print("You now have a Silver key!")
+        elif i == 4:
+            print("You found nothing :(")
+
+    if choice == "4":
+        choices_made += 1
+        j = random.randint(1,3)
+        if j == 1:
+            print("you find fresh blood!")
+            k = random.randint(1,3)
+            if k == 1:
+                print("You follow the trail and find a zombie!")
+                player.health -= random.randint(5, 20)
+                print("Health: ", player.health)
+            elif k == 2:
+                print("You find a fresh body...........")
+            elif k == 3:
+                print("You find a injured survivor!")
+                l = random.randint(1,2)
+                if l == 1:
+                    print("You decide to put them out of their misery, but before you do, they manage to whisper to you 'The Golden socks.......'.")
+                elif l == 2:
+                    print("You decide to help them, but as you offer them food, they lunge forward!")
+                    player.health -= random.randint(5, 20)
+                    print("Health: ", player.health)
+        elif j == 2:
+            print("You find a fresh campfire, but no one in sight.")
+        elif j == 3:
+            print("You find a set of fresh tire tracks leading towards the city.")
+
+    if choice == "5":
+        choices_made += 1
+        m = random.randint(1, 6)
+        if m == 1:
+            print("None of the vehicles around you work.")
+        if m == 2:
+            print("You find a truck, but as you try to start it, you explode!")
+            player.health = 0
+            print("Health: ", player.health)
+
+
+nothing
+explosion
+tank
+truck
+bike
+roller skates
