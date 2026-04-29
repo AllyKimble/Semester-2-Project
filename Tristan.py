@@ -9,11 +9,15 @@ def zombie_event():
         elif event == 2:
             print("Event2:Zombie_horde has appeared")
 zombie_event()
-
 def secret_event():
-        print("secret event has appeared")
         if event == 1:
-            print("you completed the secret event")
+            print("you missed the secret event")
         elif event == 2:
-            print("you filed the secret event")
+            print("secret event is here")
+secret_event()
+def secret_event():
+        if event == 2:
+            print("you completed the secret event")
+        elif event == 1:
+            print("you felled the secret event")
 secret_event()
