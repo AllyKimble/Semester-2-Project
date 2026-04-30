@@ -1,5 +1,5 @@
 #Things to work on: Random scenarios, attack and health, ask questions
-#Scenarios, make an introduction to game/explain, fix the choices, fix and bugs
+#Scenarios, make an introduction to game/explain, try to fix scout possibly, try to work on another day, and make the weapons class work.
 import random
 #class for player#
 class Player:
@@ -9,15 +9,17 @@ class Player:
         self.food = 1
         self.weapon = ["Fists"]
         self.inventory = ["Map", "Flashlight", "Socks", "Water Flask"]
+        self.medkits = 0
 #Added Scout mechanic
 class Scout_Character:
-    def __init__(self, health, energy):
+    def __init__(self, health, energy, damage):
         self.health = health
         self.energy = energy
-scout = Scout_Character(50, 100)
-
+        self.damage = damage
+scout = Scout_Character(50, 100, 25)
+scout_thing = 1
 def scout_mechanic():
-    if scout_thing == True:
+    if scout_thing == True and scout.health >= 0:
         while scout.health >= 0:
             scout_question = str(input("Would you like to use scout?(y/n):"))
             if scout_question == "y":
@@ -25,17 +27,34 @@ def scout_mechanic():
                 print("What would you like scout to do?")
                 print("1. Look for food (Medium risk, medium prize")
                 print("2. look for an weapon crate (High risk, High prize)")
-                print("3. Nevermind")
+                print("3. Feed her, she has:", scout.health, "health, and", scout.energy, "energy")
+                print("4. Pet her (Nevermind)")
                 Scout_choice = input("Enter your choice: ")
                 if Scout_choice == "1":
                     scout1 = random.randint(1, 12)
                     scout2 = random.randint(1, 6)
                     if scout1 == 1:
+                        player.food += 5 and scout.energy - 20
                         print("Scout found you +5 food, But took -20 of her energy")
+                        print("Her new stats: Health:", scout.health, "Energy:", scout.energy)
                     elif scout2 == 1:
+                        scout.health -= 20 and scout.energy - 20
                         print("Scout got attacked by an zombie. - 20 scout health and -20 scout energy")
+                        print("Her new stats: Health:", scout.health, "Energy:", scout.energy)
                     else:
+                        player.food += 1 and scout.energy - 20
                         print("Scout found you food. + 1 food and -20 Scout energy")
+                if Scout_choice == "2":
+                    scout1 = random.randint(1, 12)
+                    scout2 = random.randint(1, 4)
+                    if scout1 == 1:
+                        print("It has been 5 hours since scout has left. It is getting dark and you try to find her. YOu decide to leave and assume she is dead.")
+                        scout.health = 0
+                    if scout2 == 1:
+                        print("Scout has came back and has led you to an weapons crate with an Assault Rifle and 3 medkits. ")
+                        player.medkits += 3
+                        player.weapon.append("Assault Rifle")
+
 #Day_def
 def days():
     global day
@@ -87,90 +106,14 @@ def abandoned_hospital():
     if thing1 == 1:
         print("You found a gun (epic), and a first aid kit(Legendary)!!")
         player.weapon.append("Gun")
-        player.inventory.append("Medkit")
-    if thing2 == 1:
+        player.medkits += 1
+    if thing2 == 1 or thing2 == 2 or thing2 == 3 or thing2 == 4:
         print("You found a Dog, named scout. You become best friends!!")
-        scout_thing == True
+        scout_thing = True
     if thing3 == 1:
         zombie_bite = random.randint(10,25)
         print("You got attacked by a zombie nurse, Minus", zombie_bite, "Hp")
         player.health -= zombie_bite
         print("Health: ", player.health)
     else:
-        print("You found a baseball bat (uncommon)")
-        player.inventory.append("baseball")
-# first_choice
-while player.health > 0 and day <= 6:
-    choices()
-    choice = input("Enter your choice(1-6): ")
-    if choice == "1":
-        choices_made += 1
-        find = random.randint(1, 3)
-
-        if find == 1:
-            print("You found some lettuce!")
-            player.food +=  1
-            print("Food: ", player.food)
-        elif find == 2:
-            print("You found the Fork of Wonder!")
-            player.weapon = "Fork of Wonder"
-        else:
-            print("A zombie was inside the house and you got attacked!!! :O")
-            player.health -= 25
-            print("Health: ", player.health)
-
-    if choice == "2":
-        choices_made += 1
-        damage = random.randint(5, 30)
-
-        if player.weapon == "Fork of Wonder":
-            damage -= 5
-
-        print("You fought a zombie!!")
-        print("You lost,", damage, "health! :(")
-        player.health -= damage
-        print("Health: ", player.health)
-
-    elif choice == "3":
-        choices_made += 1
-        if player.food > 0:
-            print("You ate some scrumptious lettuce!")
-            player.food -= 1
-            player.health += 2
-            print("Food: ", player.food)
-            print("Health: ", player.health)
-            choices_made += 1
-        else:
-            print("No food left! T-T")
-            print("Food: ", player.food)
-
-    elif choice == "4":
-        choices_made += 1
-        print("You rested and gained health")
-        player.health += 5
-        print("Health: ", player.health)
-
-    elif choice == "5":
-        choices_made += 1
-        print("You ate the zombie!? Now why would you do that? You have died.")
-        player.health = 0
-        print("Health: ", player.health)
-
-
-    elif choice == "6":
-        choices_made += 1
-        print("inventory:", player.inventory)
-
-    elif choice != "1" and choice != "2" and choice != "3" and choice != "4" and choice != "5" and choice != "6":
-            print("Invalid choice! Please try again.")
-# abandoned hospital scenarios
-    print("You stumbled across an abandoned hospital!")
-    abandoned_question = str(input("Would You like to explore it(y/n)"))
-    if abandoned_question == "y":
-        abandoned_hospital()
-    elif abandoned_question == "n":
-        print("You didn't explore the hospital and go back to base")
-    else:
-        print("Invalid choice! Please try again.")
-    break
-
+        print("You found a baseball bat (common)")

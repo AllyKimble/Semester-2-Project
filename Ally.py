@@ -5,6 +5,7 @@
 import random
 import time
 from idlelib.config_key import translate_key
+from winreg import EnumKey
 
 
 #class for player#
@@ -92,6 +93,8 @@ while player.health > 0 and day == 1:
 
         if player.weapon == "Fork of Fear":
             damage -= 5
+        if player.weapon == "AR-15":
+            damage -= 9
 
         print("You fought a zombie!!")
         print("You lost,", damage, "health! :(")
@@ -217,6 +220,10 @@ while player.health > 0 and day == 2:
             print("Food: ", player.food)
         elif a == 8:
             damage = random.randint(5, 30)
+            if player.weapon == "Fork of Fear":
+                damage -= 5
+            if player.weapon == "AR-15":
+                damage -= 9
             print("A zombie showed up while you were setting up! It attacks you!")
             player.health -= damage
             print("Health: ", player.health)
@@ -225,8 +232,13 @@ while player.health > 0 and day == 2:
             player.inventory.append("Golden Key")
             print("You now have The Golden Key.")
         elif a == 10:
+            damage = random.randint(20, 50)
+            if player.weapon == "Fork of Fear":
+                damage -= 5
+            if player.weapon == "AR-15":
+                damage -= 9
             print("You attracted a zombie horde!")
-            player.health -= random.randint(20, 50)
+            player.health -= damage
             print("Health: ", player.health)
 
     if choice == "4":
@@ -424,19 +436,162 @@ while player.health > 0 and day == 3:
             print("You find a set of fresh tire tracks leading towards the city.")
 
     if choice == "5":
-        choices_made += 1
         m = random.randint(1, 6)
         if m == 1:
             print("None of the vehicles around you work.")
-        if m == 2:
+        elif m == 2:
             print("You find a truck, but as you try to start it, you explode!")
             player.health = 0
             print("Health: ", player.health)
+            choices_made += 1
+        elif m == 3:
+            print("You find a working tank!")
+            if "Tank" in player.inventory:
+                print("You already have one tank... You don't need two!")
+            elif "Truck" in player.inventory:
+                print("You already found a truck... You don't need a tank too!")
+            elif "Bike" in player.inventory:
+                print("You already found a bike... You don't need a tank too!")
+            elif "Roller Skates" in player.inventory:
+                print("You already found a pair of Roller Skates... You don't need a tank too!")
+            else:
+                player.inventory.append("Tank")
+                choices_made += 1
+        elif m == 4:
+            print("You  find a working truck!")
+            if "Truck" in player.inventory:
+                print("You already have one truck... You don't need two!")
+            elif "Tank" in player.inventory:
+                print("You already found a tank... You don't need a truck too!")
+            elif "Bike" in player.inventory:
+                print("You already found a bike... You don't need a truck too!")
+            elif "Roller Skates" in player.inventory:
+                print("You already found a pair of Roller Skates... You don't need a truck too!")
+            else:
+                player.inventory.append("Truck")
+                choices_made += 1
+        elif m == 5:
+            print("You  find a bike!")
+            if "Bike" in player.inventory:
+                print("You already have one bike... You don't need two!")
+            elif "Tank" in player.inventory:
+                print("You already found a tank... You don't need a bike too!")
+            elif "Truck" in player.inventory:
+                print("You already found a truck... You don't need a bike too!")
+            elif "Roller Skates" in player.inventory:
+                print("You already found a pair of Roller Skates... You don't need a bike too!")
+            else:
+                player.inventory.append("Bike")
+                choices_made += 1
+        elif m == 6:
+            print("You found a pair of Roller Skates!")
+            if "Roller Skates" in player.inventory:
+                print("You already found a pair of Roller Skates... You don't need two!")
+            elif "Bike" in player.inventory:
+                print("You already found a Bike... You don't need Roller Skates too!")
+            elif "Tank" in player.inventory:
+                print("You already found a Tank... You don't need Roller Skates too!")
+            elif "Truck" in player.inventory:
+                print("You already found a Truck... You don't need Roller Skates too!")
+            else:
+                player.inventory.append("Roller Skates")
+                choices_made += 1
 
+    if choice == "6":
+        choices_made += 1
+        print("You go in search of weapons.")
+        n = random.randint(1,7)
+        if n == 1:
+            print("You pry open an old crate, and find a Nuke! You quickly try to scramble away, but sadly, you set it off. The world around you explodes.")
+            player.health = 0
+            print("Health: ", player.health)
+        elif n == 2:
+            print("You find an AR-15!")
+            player.inventory.append("AR-15")
+            player.weapon = "AR-15"
+        elif n == 3:
+            print("You find a Rubber Chicken!?")
+            player.inventory.append("Rubber Chicken")
+            player.weapon = "Rubber Chicken"
+        elif n == 4:
+            print("You find a knife!")
+            player.inventory.append("Knife")
+            player.weapon = "Knife"
+        elif n == 5:
+            print("You find a hatchet!")
+            player.inventory.append("Hatchet")
+            player.weapon = "Hatchet"
+        elif n == 6:
+            print("you find a Riot Shield!")
+            player.inventory.append("Riot Shield")
+            player.weapon = "Riot Shield"
+        elif n == 7:
+            print("you find a Battering Ram!")
+            player.inventory.append("Battering Ram")
+            player.weapon = "Battering Ram"
 
-nothing
-explosion
-tank
-truck
-bike
-roller skates
+    if choice == "7":
+        choices_made += 1
+        print("You decide to use the Boot Camp. You gain some health!")
+        heal = random.randint(10, 30)
+        player.health += heal
+        if player.health >= 100:
+            player.health = 100
+        print("Health: ", player.health)
+
+    if choice == "8":
+        choices_made += 1
+        print("inventory:", player.inventory)
+
+    elif choice != "1" and choice != "2" and choice != "3" and choice != "4" and choice != "5" and choice != "6" and choice != "7" and choice != "8":
+            print("Invalid choice! Please try again.")
+
+    if player.health > 100:
+        player.health = 100
+        print("Health: ", player.health)
+        print("Food: ", player.food)
+
+    if choices_made == 7:
+        days()
+        choices_made = 0
+
+    if player.health <= 0:
+        print("Oh no! You have died! GAME OVER")
+        break
+
+if day == 4:
+
+    print("--- Day ", day, " ---")
+    print("Health: ", player.health)
+    print("Food: ", player.food)
+    print("Weapon:", player.weapon)
+    print("Inventory:", player.inventory)
+
+while player.health > 0 and day == 4:
+    print("You find an abandoned Hospital!")
+    print("~~~ Choose your action ~~~")
+    print("1. Eat some scrumptious lettuce.")
+    print("2. Rest in a medical bed.")
+    print("3. Search for life.")
+    print("4. Look for supplies.")
+    print("5. Take some medicine.")
+    print("6. Tend to your wounds.")
+    print("7. Investigate a loud banging deep in the Hospital.")
+    print("8. Use a Ouija board")
+    print("9. View inventory.")
+
+    choice = input("Enter your choice(1-9): ")
+
+    if choice == "1":
+        if player.food > 0:
+            print("You ate some scrumptious lettuce!")
+            player.food -= 1
+            player.health += 5
+            print("Food: ", player.food)
+            print("Health: ", player.health)
+            choices_made += 1
+        else:
+            print("No food left! T-T")
+            print("Food: ", player.food)
+
+    if choice == "2":
