@@ -1,5 +1,5 @@
 #Things to work on: Random scenarios, attack and health, ask questions
-#Scenarios, make an introduction to game/explain, try to fix scout possibly, try to work on another day, and make the weapons class work.
+#, try to fix scout possibly, try to work on another day, and make the weapons class work.
 import random
 #class for player#
 class Player:
@@ -10,6 +10,7 @@ class Player:
         self.weapon = ["Fists"]
         self.inventory = ["Map", "Flashlight", "Socks", "Water Flask"]
         self.medkits = 0
+
 #Added Scout mechanic
 class Scout_Character:
     def __init__(self, health, energy, damage):
@@ -54,7 +55,10 @@ def scout_mechanic():
                         print("Scout has came back and has led you to an weapons crate with an Assault Rifle and 3 medkits. ")
                         player.medkits += 3
                         player.weapon.append("Assault Rifle")
-
+# Introduction
+def introduction():
+    print("Hello! this is a zombie apocalypes game where you can go through many different scenarios, bosses, loot, and even a dog!! ")
+    print("Earth has been seized by zombies caused by an evil scientist called Dr. Treysaurus")
 #Day_def
 def days():
     global day
