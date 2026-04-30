@@ -10,6 +10,15 @@ class Player:
         self.weapon = ["Fists"]
         self.inventory = ["Map", "Flashlight", "Socks", "Water Flask"]
         self.medkits = 0
+#Weapons Class
+class Weapons:
+    def __init__(self, damage, durability, ammo):
+        self.damage = damage
+        self.durability = durability
+        self.ammo = ammo
+assault_rifle = Weapons(30, 10000, 25)
+fork_of_fear = Weapons(25, 5, 0)
+knife_of_k = Weapons(25, 5, 25)
 
 #Added Scout mechanic
 class Scout_Character:
@@ -20,7 +29,7 @@ class Scout_Character:
 scout = Scout_Character(50, 100, 25)
 scout_thing = 1
 def scout_mechanic():
-    if scout_thing == True and scout.health >= 0:
+
         while scout.health >= 0:
             scout_question = str(input("Would you like to use scout?(y/n):"))
             if scout_question == "y":
@@ -40,7 +49,7 @@ def scout_mechanic():
                         print("Her new stats: Health:", scout.health, "Energy:", scout.energy)
                     elif scout2 == 1:
                         scout.health -= 20 and scout.energy - 20
-                        print("Scout got attacked by an zombie. - 20 scout health and -20 scout energy")
+                        print("Scout got attacked by an zombie. Scout has took away -20 scout health and -20 scout energy")
                         print("Her new stats: Health:", scout.health, "Energy:", scout.energy)
                     else:
                         player.food += 1 and scout.energy - 20
@@ -51,10 +60,16 @@ def scout_mechanic():
                     if scout1 == 1:
                         print("It has been 5 hours since scout has left. It is getting dark and you try to find her. YOu decide to leave and assume she is dead.")
                         scout.health = 0
-                    if scout2 == 1:
+                    elif scout2 == 1:
                         print("Scout has came back and has led you to an weapons crate with an Assault Rifle and 3 medkits. ")
                         player.medkits += 3
                         player.weapon.append("Assault Rifle")
+                    else:
+                        print("Scout has came back and found nothing")
+                if Scout_choice == "3":
+                    print("You fed scout some of your food and it boosted by health and energy to full")
+
+
 # Introduction
 def introduction():
     print("Hello! this is a zombie apocalypes game where you can go through many different scenarios, bosses, loot, and even a dog!! ")
@@ -92,6 +107,7 @@ def choices():
     print("5. Eat the zombie")
     print("6. View inventory")
     choices_made += 1
+scout_mechanic()
 #usersname
 name = input("Enter your survivor's name: ")
 player = Player(name)
