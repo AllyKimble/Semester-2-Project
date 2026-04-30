@@ -18,6 +18,6 @@ secret_event()
 def secret_event():
         if event == 2:
             print("you completed the secret event")
-        elif event == 1:
+        elif event == 2:
             print("you felled the secret event")
 secret_event()
