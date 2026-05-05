@@ -24,6 +24,10 @@ def secret_event1():
     elif event == 2:
         print("secret event is here")
         secret_event2()
-
-
 secret_event1()
+
+class jwi:
+    def __init__(self, hp, damage, weight):
+        self.hp = hp
+        self.damage = damage
+        self.weight = weight
