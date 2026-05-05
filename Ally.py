@@ -682,6 +682,71 @@ while player.health > 0 and day == 4:
             print("You did not find anything.")
 
     if choice == "5":
+        choices_made += 1
         r = input("You find a cabinet of medicine, do you take some?(Yes/No):")
-        if r == "Yes" or r == "yes" or r == "YES" or r == "Y" or r == "yes" or r == "y" or r == "Yep" or r == "Yeah" or r == "yeah" or r == "yeah" or r == "yeah" or r == "yep":
+        if r == "Yes" or r == "yes" or r == "YES" or r == "Y" or r == "yes" or r == "y" or r == "Yep" or r == "Yeah" or r == "Yea" or r == "yea" or r == "yeah" or r == "yep":
+            print("You decide to take some medicine!")
+            s = random.randint(1, 4)
+            if s == 1:
+                print("You Gain 5 health.")
+                player.health += 5
+            elif s == 2:
+                print("You Gain 10 health.")
+                player.health += 10
+            elif s == 3:
+                print("You Gain 15 health.")
+                player.health += 15
+            elif s == 4:
+                print("Oh no! The medicine you took was bad! You lose a LOT of health. :(")
+                player.health -= 67
+        elif r == "No" or r == "no" or r == "NO" or r == "N" or r == "n" or r == "Nope" or r == "nope" or r == "nah" or r == "Nah":
+            print("You decide not to take some medicine.")
 
+    if choice == "6":
+        choices_made += 1
+        print("You decide to tend to your wounds.")
+        player.health += 10
+
+    if choice == "7":
+        choices_made += 1
+        print("You decide to investigate the sound. You wall down a long hall, stopping before a set of metal doors. You can hear loud noises and banging from the other side. You try the door handle but the doors are locked.")
+        if "Silver" in player.inventory:
+            t = input("You feel the weight of the Silver key in your pocket. You pull it out and see that it would work in this door. Do you open it?(Yes/No):")
+            if t == "Yes" or t == "yes" or t == "YES" or t == "Y" or t == "yes" or t == "y" or t == "Yep" or t == "Yeah" or t == "Yea" or t == "yea" or t == "yeah" or t == "yep":
+                print("You decide to unlock the doors. You turn the key in the lock and pull the doors open. A horde of zombies pushes their way out and smothers you.")
+                player.health = 0
+            elif t == "No" or t == "no" or t == "NO" or t == "N" or t == "n" or t == "Nope" or t == "nope" or t == "nah" or t == "Nah":
+                print("You decide to not open the doors, you pocket the key and turn away.")
+
+    if choice == "8":
+        choices_made += 1
+        print("You find an old wooden Ouija Board. You sit down to use it.")
+        u = random.randint(1, 3)
+        if u == 1:
+            print("A ghost appears! It seems friendy. It gives you 3 lettuce.")
+            player.food += 3
+        elif u == 2:
+            print("A scary ghost appears!")
+            player.health -= 5
+        elif u == 3:
+            print("Nothing happens...")
+
+    if choice == "9":
+        choices_made += 1
+        print("Inventory:", player.inventory)
+
+    elif choice != "1" and choice != "2" and choice != "3" and choice != "4" and choice != "5" and choice != "6" and choice != "7" and choice != "8" and choice != "9":
+            print("Invalid choice! Please try again.")
+
+    if player.health > 100:
+        player.health = 100
+        print("Health: ", player.health)
+        print("Food: ", player.food)
+
+    if choices_made == 7:
+        days()
+        choices_made = 0
+
+    if player.health <= 0:
+        print("Oh no! You have died! GAME OVER")
+        break
