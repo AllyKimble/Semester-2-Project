@@ -8,6 +8,7 @@ from idlelib.config_key import translate_key
 from winreg import EnumKey
 
 
+
 #class for player#
 
 class Player:
@@ -24,6 +25,53 @@ player = Player(name)
 
 day = 1
 choices_made = 0
+
+
+#Class for Scout#
+
+class Scout:
+    def __init__(self, health, energy, damage):
+        self.health = health
+        self.energy = energy
+        self.damage = damage
+Scout = Scout(50, 100, 25)
+scout_thing = 1
+def scout_mechanic():
+    if scout_thing == True and Scout.health >= 0:
+        while Scout.health >= 0:
+            scout_question = str(input("Would you like to use scout?(y/n):"))
+            if scout_question == "y":
+                print("Would you like to use scout?")
+                print("What would you like scout to do?")
+                print("1. Look for food (Medium risk, medium prize")
+                print("2. look for an weapon crate (High risk, High prize)")
+                print("3. Feed her, she has:", Scout.health, "health, and", Scout.energy, "energy")
+                print("4. Pet her (Nevermind)")
+                Scout_choice = input("Enter your choice: ")
+                if Scout_choice == "1":
+                    scout1 = random.randint(1, 12)
+                    scout2 = random.randint(1, 6)
+                    if scout1 == 1:
+                        player.food += 5 and Scout.energy - 20
+                        print("Scout found you +5 food, But took -20 of her energy")
+                        print("Her new stats: Health:", Scout.health, "Energy:", Scout.energy)
+                    elif scout2 == 1:
+                        Scout.health -= 20 and Scout.energy - 20
+                        print("Scout got attacked by an zombie. - 20 scout health and -20 scout energy")
+                        print("Her new stats: Health:", Scout.health, "Energy:", Scout.energy)
+                    else:
+                        player.food += 1 and Scout.energy - 20
+                        print("Scout found you food. + 1 food and -20 Scout energy")
+                if Scout_choice == "2":
+                    scout1 = random.randint(1, 12)
+                    scout2 = random.randint(1, 4)
+                    if scout1 == 1:
+                        print("It has been 5 hours since scout has left. It is getting dark and you try to find her. YOu decide to leave and assume she is dead.")
+                        Scout.health = 0
+                    if scout2 == 1:
+                        print("Scout has came back and has led you to an weapons crate with an Assault Rifle and 3 medkits. ")
+                        player.inventory.append("Medkit"*3)
+                        player.weapon = "Assault Rifle"
 
 def days():
     global day
@@ -579,8 +627,15 @@ while player.health > 0 and day == 4:
     print("7. Investigate a loud banging deep in the Hospital.")
     print("8. Use a Ouija board")
     print("9. View inventory.")
+    if "Scout" in player.inventory:
+        print("10. Use Scout.")
 
-    choice = input("Enter your choice(1-9): ")
+
+    if "Scout" in player.inventory:
+        choice = input("Enter your choice(1-10): ")
+    else:
+        choice = input("Enter your choice(1-9): ")
+
 
     if choice == "1":
         if player.food > 0:
@@ -595,3 +650,38 @@ while player.health > 0 and day == 4:
             print("Food: ", player.food)
 
     if choice == "2":
+        choices_made += 1
+        print("You decided to take a nap in a medical bed.")
+        player.health += 5
+        print("Health: ", player.health)
+
+    if choice == "3":
+        if "Scout" in player.inventory:
+            print("There is no more life in the hospital. Go do something else.")
+        else:
+            choices_made += 1
+            print("You decide to search the hospital for life.")
+        p = input("While you are searching through the hospital, you hear a sound. Do you investigate? (Yes/No):")
+        if p == "Yes" or p == "yes" or p == "YES" or p == "Y" or p == "y" or p == "Yep" or p == "Yeah" or p == "yeah"  or p == "yep":
+            print("You decide to investigate the sound. You walk into a small room and see a dog hiding behind a box. You check her collar, her name is Scout!")
+            player.inventory.append("Scout")
+        if p == "No" or p == "no" or p == "NO" or p == "N" or p == "n" or p == "Nope" or p == "nope" or p == "nah" or p == "Nah":
+            print("You decide to not investigate the sound and return to the main hall again.")
+
+        if "Scout" in player.inventory:
+            scout_mechanic()
+
+    if choice == "4":
+        choices_made += 1
+        print("You decide to look for supplies.")
+        q = random.randint(1, 2)
+        if q == 1:
+            print("You found a Medkit!")
+            player.inventory.append("Medkit")
+        elif q == 2:
+            print("You did not find anything.")
+
+    if choice == "5":
+        r = input("You find a cabinet of medicine, do you take some?(Yes/No):")
+        if r == "Yes" or r == "yes" or r == "YES" or r == "Y" or r == "yes" or r == "y" or r == "Yep" or r == "Yeah" or r == "yeah" or r == "yeah" or r == "yeah" or r == "yep":
+
