@@ -19,6 +19,10 @@ class Player:
         self.weapon = "Fists"
         self.inventory = ["Flashlight", "Socks", "Water Flask"]
 
+class Monster:
+    def __init__(self, name):
+        self.name = Monster
+        self.health = 100
 
 name = input("Enter your survivor's name: ")
 player = Player(name)
@@ -750,3 +754,73 @@ while player.health > 0 and day == 4:
     if player.health <= 0:
         print("Oh no! You have died! GAME OVER")
         break
+
+if day == 5:
+    print("--- Day ", day, " ---")
+    print("Health: ", player.health)
+    print("Food: ", player.food)
+    print("Weapon:", player.weapon)
+    print("Inventory:", player.inventory)
+
+while player.health > 0 and day == 5:
+    print("You have returned back to camp and see that you camp has been ravaged by a mysterious entity. Leaving behind a trail of mysterious goo.")
+    print("~~~ Choose your action ~~~")
+    print("1. Eat some scrumptious lettuce.")
+    print("2. Rest.")
+    print("3. Fix your camp.")
+    print("4. Follow the mysterious goo.")
+    print("5. Train with" , player.weapon , ".")
+    print("6. View inventory.")
+    if "Scout" in player.inventory:
+        print("7. Use Scout.")
+
+    if "Scout" in player.inventory:
+        choice = input("Enter your choice(1-7): ")
+    else:
+        choice = input("Enter your choice(1-6): ")
+
+    if choice == "1":
+        if player.food > 0:
+            print("You ate some scrumptious lettuce!")
+            player.food -= 1
+            player.health += 5
+            print("Food: ", player.food)
+            print("Health: ", player.health)
+            choices_made += 1
+        else:
+            print("No food left! T-T")
+            print("Food: ", player.food)
+
+    elif choice == "2":
+        choices_made += 1
+        print("You rested and gained health")
+        player.health += 5
+        print("Health: ", player.health)
+
+    elif choice == "3":
+        choices_made += 1
+        print("You decide to fix up camp!")
+        print("While fixing up camp, you fall into a puddle of goo! You manage to crawl out of it, but not without damage.")
+        player.health -= 15
+
+    elif choice == "4":
+        print("You decide to follow the mysterious trail of goo.")
+        v = input("You come to an abandoned cave, would you like to explore it?(Yes/No):")
+        if v == "Yes" or v == "yes" or v == "YES" or v == "Y" or v == "yes" or v == "y" or v == "Yep" or v == "Yeah" or v == "Yea" or v == "yea" or v == "yeah" or v == "yep":
+            print("You decide to explore the cave.")
+            if "Scout" in player.inventory:
+                w = input("Would you like to send Scout in first?(Yes/No):")
+                if w == "Yes" or w == "yes" or w == "YES" or w == "Y" or w == "yes" or w == "y" or w == "Yep" or w == "Yeah" or w == "Yea" or w == "yea" or w == "yeah" or w == "yep":
+                    x = random.randint(1, 3)
+                    if x == 1:
+                        print("Scout returns after a few minutes with nothing.")
+                    if x == 2:
+                        print("Scout runs back out, terrified.")
+                        y = input("Do you want to enter the cave?(Yes/No):")
+                        if y == "Yes" or y == "yes" or y == "YES" or y == "Y" or y == "yes" or y == "y" or y == "Yep" or y == "Yeah" or y == "Yea" or y == "yea" or y == "yeah" or y == "yep":
+                            print("You decide to enter the dark cave. Scout cowers behind you as you delve deeper. After 30 minutes of walking, the cave tunnel opens up to a large cavern. In the middle of it sits a giant monster. It looks up at you, and leaps forward, ready to attack.")
+                            monster_damage =  random.randint(5, 50)
+
+                    if x == 3:
+                        print("Scout returns, and pulls you into the cave, excited.")
+
