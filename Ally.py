@@ -19,6 +19,10 @@ class Player:
         self.weapon = "Fists"
         self.inventory = ["Flashlight", "Socks", "Water Flask"]
 
+class Monster:
+    def __init__(self, name):
+        self.name = Monster
+        self.health = 100
 
 name = input("Enter your survivor's name: ")
 player = Player(name)
@@ -682,6 +686,141 @@ while player.health > 0 and day == 4:
             print("You did not find anything.")
 
     if choice == "5":
+        choices_made += 1
         r = input("You find a cabinet of medicine, do you take some?(Yes/No):")
-        if r == "Yes" or r == "yes" or r == "YES" or r == "Y" or r == "yes" or r == "y" or r == "Yep" or r == "Yeah" or r == "yeah" or r == "yeah" or r == "yeah" or r == "yep":
+        if r == "Yes" or r == "yes" or r == "YES" or r == "Y" or r == "yes" or r == "y" or r == "Yep" or r == "Yeah" or r == "Yea" or r == "yea" or r == "yeah" or r == "yep":
+            print("You decide to take some medicine!")
+            s = random.randint(1, 4)
+            if s == 1:
+                print("You Gain 5 health.")
+                player.health += 5
+            elif s == 2:
+                print("You Gain 10 health.")
+                player.health += 10
+            elif s == 3:
+                print("You Gain 15 health.")
+                player.health += 15
+            elif s == 4:
+                print("Oh no! The medicine you took was bad! You lose a LOT of health. :(")
+                player.health -= 67
+        elif r == "No" or r == "no" or r == "NO" or r == "N" or r == "n" or r == "Nope" or r == "nope" or r == "nah" or r == "Nah":
+            print("You decide not to take some medicine.")
+
+    if choice == "6":
+        choices_made += 1
+        print("You decide to tend to your wounds.")
+        player.health += 10
+
+    if choice == "7":
+        choices_made += 1
+        print("You decide to investigate the sound. You wall down a long hall, stopping before a set of metal doors. You can hear loud noises and banging from the other side. You try the door handle but the doors are locked.")
+        if "Silver" in player.inventory:
+            t = input("You feel the weight of the Silver key in your pocket. You pull it out and see that it would work in this door. Do you open it?(Yes/No):")
+            if t == "Yes" or t == "yes" or t == "YES" or t == "Y" or t == "yes" or t == "y" or t == "Yep" or t == "Yeah" or t == "Yea" or t == "yea" or t == "yeah" or t == "yep":
+                print("You decide to unlock the doors. You turn the key in the lock and pull the doors open. A horde of zombies pushes their way out and smothers you.")
+                player.health = 0
+            elif t == "No" or t == "no" or t == "NO" or t == "N" or t == "n" or t == "Nope" or t == "nope" or t == "nah" or t == "Nah":
+                print("You decide to not open the doors, you pocket the key and turn away.")
+
+    if choice == "8":
+        choices_made += 1
+        print("You find an old wooden Ouija Board. You sit down to use it.")
+        u = random.randint(1, 3)
+        if u == 1:
+            print("A ghost appears! It seems friendy. It gives you 3 lettuce.")
+            player.food += 3
+        elif u == 2:
+            print("A scary ghost appears!")
+            player.health -= 5
+        elif u == 3:
+            print("Nothing happens...")
+
+    if choice == "9":
+        choices_made += 1
+        print("Inventory:", player.inventory)
+
+    elif choice != "1" and choice != "2" and choice != "3" and choice != "4" and choice != "5" and choice != "6" and choice != "7" and choice != "8" and choice != "9":
+            print("Invalid choice! Please try again.")
+
+    if player.health > 100:
+        player.health = 100
+        print("Health: ", player.health)
+        print("Food: ", player.food)
+
+    if choices_made == 7:
+        days()
+        choices_made = 0
+
+    if player.health <= 0:
+        print("Oh no! You have died! GAME OVER")
+        break
+
+if day == 5:
+    print("--- Day ", day, " ---")
+    print("Health: ", player.health)
+    print("Food: ", player.food)
+    print("Weapon:", player.weapon)
+    print("Inventory:", player.inventory)
+
+while player.health > 0 and day == 5:
+    print("You have returned back to camp and see that you camp has been ravaged by a mysterious entity. Leaving behind a trail of mysterious goo.")
+    print("~~~ Choose your action ~~~")
+    print("1. Eat some scrumptious lettuce.")
+    print("2. Rest.")
+    print("3. Fix your camp.")
+    print("4. Follow the mysterious goo.")
+    print("5. Train with" , player.weapon , ".")
+    print("6. View inventory.")
+    if "Scout" in player.inventory:
+        print("7. Use Scout.")
+
+    if "Scout" in player.inventory:
+        choice = input("Enter your choice(1-7): ")
+    else:
+        choice = input("Enter your choice(1-6): ")
+
+    if choice == "1":
+        if player.food > 0:
+            print("You ate some scrumptious lettuce!")
+            player.food -= 1
+            player.health += 5
+            print("Food: ", player.food)
+            print("Health: ", player.health)
+            choices_made += 1
+        else:
+            print("No food left! T-T")
+            print("Food: ", player.food)
+
+    elif choice == "2":
+        choices_made += 1
+        print("You rested and gained health")
+        player.health += 5
+        print("Health: ", player.health)
+
+    elif choice == "3":
+        choices_made += 1
+        print("You decide to fix up camp!")
+        print("While fixing up camp, you fall into a puddle of goo! You manage to crawl out of it, but not without damage.")
+        player.health -= 15
+
+    elif choice == "4":
+        print("You decide to follow the mysterious trail of goo.")
+        v = input("You come to an abandoned cave, would you like to explore it?(Yes/No):")
+        if v == "Yes" or v == "yes" or v == "YES" or v == "Y" or v == "yes" or v == "y" or v == "Yep" or v == "Yeah" or v == "Yea" or v == "yea" or v == "yeah" or v == "yep":
+            print("You decide to explore the cave.")
+            if "Scout" in player.inventory:
+                w = input("Would you like to send Scout in first?(Yes/No):")
+                if w == "Yes" or w == "yes" or w == "YES" or w == "Y" or w == "yes" or w == "y" or w == "Yep" or w == "Yeah" or w == "Yea" or w == "yea" or w == "yeah" or w == "yep":
+                    x = random.randint(1, 3)
+                    if x == 1:
+                        print("Scout returns after a few minutes with nothing.")
+                    if x == 2:
+                        print("Scout runs back out, terrified.")
+                        y = input("Do you want to enter the cave?(Yes/No):")
+                        if y == "Yes" or y == "yes" or y == "YES" or y == "Y" or y == "yes" or y == "y" or y == "Yep" or y == "Yeah" or y == "Yea" or y == "yea" or y == "yeah" or y == "yep":
+                            print("You decide to enter the dark cave. Scout cowers behind you as you delve deeper. After 30 minutes of walking, the cave tunnel opens up to a large cavern. In the middle of it sits a giant monster. It looks up at you, and leaps forward, ready to attack.")
+                            monster_damage =  random.randint(5, 50)
+
+                    if x == 3:
+                        print("Scout returns, and pulls you into the cave, excited.")
 
